@@ -7,3 +7,4 @@ COPY ProfessionalsService.jar .
 COPY config_prod.yml .
 CMD ["java","-jar","ProfessionalsService.jar","server","config_prod.yml"]
 
+
