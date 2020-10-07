@@ -1,13 +1,29 @@
-steps:
-# This step deploys the new version of our container image
-# in the hello-cloudbuild Kubernetes Engine cluster.
+# This step pushes the image to Container Registry
+# The PROJECT_ID and SHORT_SHA variables are automatically
+# replaced by Cloud Build.
+- name: 'gcr.io/cloud-builders/docker'
+  id: Push
+  args:
+    - 'push'
+    - 'gcr.io/$PROJECT_ID/professionals-service:v1'
+
 - name: 'gcr.io/cloud-builders/kubectl'
   id: Deploy
   args:
-  - 'replace'
-  - 'deployment'
-  - '-f'
-  - 'users-service-deployment.yaml'
+    - 'delete'
+    - 'deployment'
+    - 'professionals-service'
   env:
-  - 'CLOUDSDK_COMPUTE_ZONE=us-east1-b'
-  - 'CLOUDSDK_CONTAINER_CLUSTER=users-service-cluster' 
+    - 'CLOUDSDK_COMPUTE_ZONE=us-east1-b'
+    - 'CLOUDSDK_CONTAINER_CLUSTER=cluster-1'
+
+
+- name: 'gcr.io/cloud-builders/kubectl'
+  id: Spin up
+  args:
+    - 'create'
+    - '-f'
+    - '/workspace/kubernetes-production/professionals-service-deployment.yml'
+  env:
+    - 'CLOUDSDK_COMPUTE_ZONE=us-east1-b'
+    - 'CLOUDSDK_CONTAINER_CLUSTER=cluster-1'
