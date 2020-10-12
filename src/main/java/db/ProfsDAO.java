@@ -9,6 +9,7 @@ import org.skife.jdbi.v2.sqlobject.SqlUpdate;
 import org.skife.jdbi.v2.sqlobject.customizers.RegisterMapper;
 
 import java.util.List;
+import java.util.Set;
 
 @RegisterMapper(ProfsMapper.class)
 public interface ProfsDAO {
@@ -26,5 +27,11 @@ public interface ProfsDAO {
 
     @SqlUpdate("Delete FROM professionals WHERE id = :id")
     public void deleteProf(@Bind("id") final int id);
+
+    @SqlQuery("Select DISTINCT company FROM professionals")
+    public Set<String> listCompanies();
+
+    @SqlQuery("Select DISTINCT jobTitle FROM professionals")
+    public Set<String> listJobTitles();
 
 }

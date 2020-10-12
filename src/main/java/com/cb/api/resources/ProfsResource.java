@@ -7,6 +7,7 @@ import javax.validation.constraints.NotNull;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.Set;
 
 @Path("/api/v1/professionals")
 @Consumes(MediaType.APPLICATION_JSON + "; charset=utf-8")
@@ -46,5 +47,19 @@ public class ProfsResource {
     public Response deleteProf(@PathParam("id") final int id){
         this.profsService.deleteProf(id);
         return Response.ok().entity("{\"message\" : \"user deleted!\"}").build();
+    }
+
+    @GET()
+    @Path("/companies")
+    public Response getCompanies() {
+        Set<String> companies = this.profsService.listCompanies();
+        return Response.status(200).entity(companies).build();
+    }
+
+    @GET()
+    @Path("/jobTitles")
+    public Response getJobTitles() {
+        Set<String> jobTitles = this.profsService.listJobTitles();
+        return Response.status(200).entity(jobTitles).build();
     }
 }

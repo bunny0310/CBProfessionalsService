@@ -4,6 +4,7 @@ import db.ProfsDAO;
 import model.Prof;
 
 import java.util.List;
+import java.util.Set;
 
 public class ProfsService {
     private ProfsDAO profsDAO;
@@ -29,5 +30,13 @@ public class ProfsService {
 
     public void deleteProf(int id) {
         this.profsDAO.deleteProf(id);
+    }
+
+    public Set<String> listCompanies() {
+        return this.profsDAO.listCompanies();
+    }
+
+    public Set<String> listJobTitles() {
+        return this.profsDAO.listJobTitles();
     }
 }
