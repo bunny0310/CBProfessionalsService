@@ -7,6 +7,7 @@ import javax.validation.constraints.NotNull;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.List;
 import java.util.Set;
 
 @Path("/api/v1/professionals")
@@ -57,9 +58,25 @@ public class ProfsResource {
     }
 
     @GET()
+    @Path("/companies/{name}")
+    public Response getCompanies(@PathParam("name") String name) {
+        name = name.replace('+', ' ');
+        List<Prof> results= this.profsService.listCompanies(name);
+        return Response.status(200).entity(results).build();
+    }
+
+    @GET()
     @Path("/jobTitles")
     public Response getJobTitles() {
         Set<String> jobTitles = this.profsService.listJobTitles();
         return Response.status(200).entity(jobTitles).build();
+    }
+
+    @GET()
+    @Path("/jobTitles/{name}")
+    public Response getJobTitles(@PathParam("name") String name) {
+        name = name.replace('+', ' ');
+        List<Prof> results= this.profsService.listJobTitles(name);
+        return Response.status(200).entity(results).build();
     }
 }

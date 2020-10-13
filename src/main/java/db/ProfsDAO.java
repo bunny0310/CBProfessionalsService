@@ -34,4 +34,10 @@ public interface ProfsDAO {
     @SqlQuery("Select DISTINCT jobTitle FROM professionals")
     public Set<String> listJobTitles();
 
+    @SqlQuery("Select * FROM professionals WHERE company = :name")
+    public List<Prof> listCompanies(@Bind("name") final String name);
+
+    @SqlQuery("Select * FROM professionals WHERE jobTitle = :name")
+    public List<Prof> listJobTitles(@Bind("name") final String name);
+
 }

@@ -39,4 +39,12 @@ public class ProfsService {
     public Set<String> listJobTitles() {
         return this.profsDAO.listJobTitles();
     }
+
+    public List<Prof> listCompanies(String name) {
+        return this.profsDAO.listCompanies(name);
+    }
+
+    public List<Prof> listJobTitles(String name) {
+        return this.profsDAO.listJobTitles(name);
+    }
 }
