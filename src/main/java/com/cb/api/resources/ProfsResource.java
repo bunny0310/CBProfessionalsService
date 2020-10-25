@@ -36,6 +36,15 @@ public class ProfsResource {
         return Response.ok().entity(profsService.getProf(prof.getId())).build();
     }
 
+    @POST()
+    @Path("/addMultiple")
+    public Response addProfs(final @NotNull List<Prof> profs) {
+        for(Prof prof : profs) {
+            this.profsService.addProf(prof);
+        }
+        return Response.ok().entity("multiple professionals added").build();
+    }
+
     @PUT()
     @Path("/{id}")
     public Response updateProf(final @NotNull Prof prof, @PathParam("id") final int id){
