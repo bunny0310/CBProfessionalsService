@@ -41,6 +41,6 @@ public class CBProfService extends Application<DatabaseConfiguration> {
     }
 
     public static void main(String ...args) throws  Exception{
-        new CBProfService().run(args);
+        new CBProfService().run(new String[]{"server", "config/config.yml"});
     }
 }

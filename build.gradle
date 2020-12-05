@@ -43,6 +43,15 @@ run {
     args "server", "${projectDir}/config/config.yml"
 }
 
+shadowJar {
+    mergeServiceFiles()
+    exclude 'META-INF/*.DSA'
+    exclude 'META-INF/*.RSA'
+}
+
+task stage (dependsOn: ['shadowJar', 'clean'])
+shadowJar.mustRunAfter clean
+
 wrapper  {
     gradleVersion = "4.0"
 }
