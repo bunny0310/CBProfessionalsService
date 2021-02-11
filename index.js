@@ -4,7 +4,11 @@ const cors = require("cors");
 const body_parser = require("body-parser");
 const passport =require("passport");
 const path = require("path");
-const PORT = process.env.PORT||3000;
+let PORT = process.env.PORT||3000;
+const cmdPort = process.argv[2] ? process.argv[2].slice(process.argv[2].length - 4, process.argv[2].length) : null;
+if (!(cmdPort === undefined || cmdPort === null)) {
+  PORT = cmdPort;
+}
 const session = require("express-session");
 const request = require("request");
 

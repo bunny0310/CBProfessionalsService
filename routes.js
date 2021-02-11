@@ -42,8 +42,13 @@ router.get('/:id', (req, res) => {
     if (id === undefined || id === null) {
         return res.status(400).json({"msg": "incorrect json"});
     }
-    const prof = listProfessional(id);
-    return res.status(200).json({data: prof});
+    listProfessional(id)
+    .then((prof) => {
+        return res.status(200).json({data: prof});
+    })
+    .catch((err) => {
+        return res.status(400).json({msg: err});
+    })
 })
 
 router.post('/', (req, res) => {

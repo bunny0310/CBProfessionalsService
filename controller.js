@@ -7,11 +7,13 @@ const listProfessionals = async () => {
     return docs;
 }
 
-const listProfessional = (id) => {
-    Professional.find({_id: id}, (err, docs) => {
-        return docs[0];
-    });
-    return null;
+const listProfessional = async (id) => {
+    const prof = await Professional.findOne({_id: id})
+    .catch((err) => {
+        console.log(err);
+        return null;
+    })
+    return prof;
 }
 
 const addProfessional = (prof) => {
