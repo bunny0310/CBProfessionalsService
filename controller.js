@@ -3,7 +3,6 @@ const {Professional} = require("./models/professional");
 
 const listProfessionals = async () => {
     const docs = await Professional.find({});
-    console.log(docs);
     return docs;
 }
 
