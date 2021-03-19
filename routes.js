@@ -23,11 +23,17 @@ const {
 router.post('/getInChunks', (req, res) => {
     const limit = req.body.limit;
     const offset = req.body.offset;
-    const docs = listProfessionals();
     if (limit === undefined || offset === undefined || limit === null || offset === null) {
         return res.status(400).json({"msg": "incorrect JSON"});
     }
-    return res.status(200).json({data: docs.slice(offset, offset + limit), count: docs.length});
+    listProfessionals()
+    .then((docs) => {
+        return res.status(200).json({data: docs.slice(offset, offset + limit), count: docs.length});
+    })
+    .catch((err) => {
+        console.log(JSON.stringify(err));
+        return res.status(500).json({"msg": err});
+    })
 });
 
 router.get('/', (req, res) => {
